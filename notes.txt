@@ -1,3 +1,2 @@
 Make a call to the api to get a list of all users, then loop thru the list to see if the value from the username input matches the username in the list. If it does, then alert that the username already exists.
 
-consider making a getStories function for favorites, and ownStories

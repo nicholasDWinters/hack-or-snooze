@@ -139,26 +139,24 @@ class User {
    */
 
   static async signup(username, password, name) {
-    try {
-      const response = await axios({
-        url: `${BASE_URL}/signup`,
-        method: "POST",
-        data: { user: { username, password, name } },
-      });
-      console.log(response);
-      return new User(
-        {
-          username: response.data.user.username,
-          name: response.data.user.name,
-          createdAt: response.data.user.createdAt,
-          favorites: response.data.user.favorites,
-          ownStories: response.data.user.stories
-        },
-        response.data.token
-      );
-    } catch (e) {
-      console.log(e);
-    }
+
+    const response = await axios({
+      url: `${BASE_URL}/signup`,
+      method: "POST",
+      data: { user: { username, password, name } },
+    });
+
+    return new User(
+      {
+        username: response.data.user.username,
+        name: response.data.user.name,
+        createdAt: response.data.user.createdAt,
+        favorites: response.data.user.favorites,
+        ownStories: response.data.user.stories
+      },
+      response.data.token
+    );
+
   }
 
   /** Login in user with API, make User instance & return it.
@@ -277,6 +275,7 @@ class User {
       storyList.stories.splice(storyList.stories.findIndex(story => story.storyId === storyId), 1);
       currentUser.ownStories.splice(currentUser.ownStories.findIndex(story => story.storyId === storyId), 1);
       currentUser.favorites.splice(currentUser.favorites.findIndex(story => story.storyId === storyId), 1);
+      $ownStoriesList.hide();
       putStoriesOnPage();
       return response.data;
 
