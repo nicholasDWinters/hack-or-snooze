@@ -25,7 +25,11 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+
+    let arr = this.url.split('/');
+
+    return `${arr[2]}`;
+
   }
 
   isFavorite() {
