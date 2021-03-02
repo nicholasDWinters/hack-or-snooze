@@ -43,9 +43,12 @@ function navSubmitClick(evt) {
 }
 
 function navFavClick() {
+  putStoriesOnPage();
   hidePageComponents();
   $favoriteStoriesList.empty();
-
+  if (currentUser.favorites.length === 0) {
+    $favoriteStoriesList.append(`<p>You have no favorites to show!</p>`);
+  }
   // loop through all of our stories and generate HTML for them
   for (let story of currentUser.favorites) {
     const $story = generateFavoritesMarkup(story);

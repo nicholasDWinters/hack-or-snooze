@@ -225,6 +225,16 @@ class User {
         data: { token },
       });
       console.log(response.data.user.favorites);
+      const newStory = storyList.stories.filter(story => story.storyId === storyId);
+      for (let i = 0; i < this.favorites.length; i++) {
+        if (this.favorites[i].storyId === storyId) {
+          console.log('match')
+          return;
+        }
+      }
+      this.favorites.unshift(newStory[0]);
+      console.log(this.favorites);
+      // this.favorites.unshift(storyList.stories.filter(story => story.storyId === storyId));
       return response.data.user;
 
     } catch (e) {
@@ -241,6 +251,8 @@ class User {
         method: "DELETE",
         data: { token },
       });
+      currentUser.favorites.splice(currentUser.favorites.findIndex(story => story.storyId === storyId), 1);
+
       console.log(response.data.user.favorites);
       return response.data.user.favorites;
 
@@ -261,7 +273,7 @@ class User {
       storyList.stories.splice(storyList.stories.findIndex(story => story.storyId === storyId), 1);
       currentUser.ownStories.splice(currentUser.ownStories.findIndex(story => story.storyId === storyId), 1);
       currentUser.favorites.splice(currentUser.favorites.findIndex(story => story.storyId === storyId), 1);
-      console.log(response.data);
+      putStoriesOnPage();
       return response.data;
 
     } catch (e) {
