@@ -28,6 +28,10 @@ class Story {
     return "hostname.com";
   }
 
+  isFavorite() {
+    return (currentUser.favorites.some(favorite => favorite.storyId === this.storyId));
+  }
+
 
 }
 

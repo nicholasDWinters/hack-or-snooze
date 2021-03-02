@@ -51,7 +51,7 @@ function navFavClick() {
   }
   // loop through all of our stories and generate HTML for them
   for (let story of currentUser.favorites) {
-    const $story = generateFavoritesMarkup(story);
+    const $story = generateStoryMarkup(story);
     $favoriteStoriesList.append($story);
   }
 

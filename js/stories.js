@@ -26,16 +26,29 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
 
   if (currentUser) {
-    return $(`
-  <li id="${story.storyId}"><i class="far fa-star"></i>
-    <a href="${story.url}" target="a_blank" class="story-link">
-      ${story.title}
-    </a>
-    <small class="story-hostname">(${hostName})</small>
-    <small class="story-author">by ${story.author}</small>
-    <small class="story-user">posted by ${story.username}</small>
-  </li>
-`);
+    if (story.isFavorite()) {
+      return $(`
+      <li id="${story.storyId}"><i class="fas fa-star"></i>
+        <a href="${story.url}" target="a_blank" class="story-link">
+          ${story.title}
+        </a>
+        <small class="story-hostname">(${hostName})</small>
+        <small class="story-author">by ${story.author}</small>
+        <small class="story-user">posted by ${story.username}</small>
+      </li>
+    `);
+    } else {
+      return $(`
+    <li id="${story.storyId}"><i class="far fa-star"></i>
+      <a href="${story.url}" target="a_blank" class="story-link">
+        ${story.title}
+      </a>
+      <small class="story-hostname">(${hostName})</small>
+      <small class="story-author">by ${story.author}</small>
+      <small class="story-user">posted by ${story.username}</small>
+    </li>
+  `);
+    }
   } else {
     return $(`
   <li id="${story.storyId}">
@@ -50,32 +63,45 @@ function generateStoryMarkup(story) {
   }
 }
 
-function generateFavoritesMarkup(story) {
-  const hostName = story.getHostName();
-  return $(`
-  <li id="${story.storyId}"><i class="fas fa-star"></i>
-    <a href="${story.url}" target="a_blank" class="story-link">
-      ${story.title}
-    </a>
-    <small class="story-hostname">(${hostName})</small>
-    <small class="story-author">by ${story.author}</small>
-    <small class="story-user">posted by ${story.username}</small>
-  </li>
-`);
-}
+// function generateFavoritesMarkup(story) {
+//   const hostName = story.getHostName();
+//   return $(`
+//   <li id="${story.storyId}"><i class="fas fa-star"></i>
+//     <a href="${story.url}" target="a_blank" class="story-link">
+//       ${story.title}
+//     </a>
+//     <small class="story-hostname">(${hostName})</small>
+//     <small class="story-author">by ${story.author}</small>
+//     <small class="story-user">posted by ${story.username}</small>
+//   </li>
+// `);
+// }
 
 function generateDeletionMarkup(story) {
   const hostName = story.getHostName();
-  return $(`
-  <li id="${story.storyId}"></a> <i class="fas fa-trash-alt"></i><i class="far fa-star"></i>
-    <a href="${story.url}" target="a_blank" class="story-link">
-      ${story.title}
-    
-    <small class="story-hostname">(${hostName})</small>
-    <small class="story-author">by ${story.author}</small>
-    <small class="story-user">posted by ${story.username}</small>
-  </li>
-`);
+  if (story.isFavorite()) {
+    return $(`
+    <li id="${story.storyId}"></a> <i class="fas fa-trash-alt"></i><i class="fas fa-star"></i>
+      <a href="${story.url}" target="a_blank" class="story-link">
+        ${story.title}
+      
+      <small class="story-hostname">(${hostName})</small>
+      <small class="story-author">by ${story.author}</small>
+      <small class="story-user">posted by ${story.username}</small>
+    </li>
+  `);
+  } else {
+    return $(`
+    <li id="${story.storyId}"></a> <i class="far fa-trash-alt"></i><i class="far fa-star"></i>
+      <a href="${story.url}" target="a_blank" class="story-link">
+        ${story.title}
+      
+      <small class="story-hostname">(${hostName})</small>
+      <small class="story-author">by ${story.author}</small>
+      <small class="story-user">posted by ${story.username}</small>
+    </li>
+  `);
+  }
 }
 
 
