@@ -240,7 +240,7 @@ class User {
       }
       this.favorites.unshift(newStory[0]);
       console.log(this.favorites);
-      // this.favorites.unshift(storyList.stories.filter(story => story.storyId === storyId));
+
       return response.data.user;
 
     } catch (e) {
