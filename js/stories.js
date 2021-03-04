@@ -25,10 +25,8 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
 
-  if (currentUser) {
-
-    return $(`
-      <li id="${story.storyId}"><i class="${story.isFavorite() ? 'fas' : 'far'} fa-star"></i>
+  return $(`
+      <li id="${story.storyId}">${currentUser ? `<i class="${story.isFavorite() ? 'fas' : 'far'} fa-star"></i>` : ''}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -37,18 +35,7 @@ function generateStoryMarkup(story) {
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
-  } else {
-    return $(`
-  <li id="${story.storyId}">
-    <a href="${story.url}" target="a_blank" class="story-link">
-      ${story.title}
-    </a>
-    <small class="story-hostname">(${hostName})</small>
-    <small class="story-author">by ${story.author}</small>
-    <small class="story-user">posted by ${story.username}</small>
-  </li>
-`);
-  }
+
 }
 
 function generateDeletionMarkup(story) {
@@ -129,8 +116,8 @@ $storiesContainer.on('click', function (e) {
     }
   } else if (e.target.classList.contains('fa-trash-alt')) {
     console.log(e.target.parentElement);
-    e.target.parentElement.remove();
     let story = e.target.parentElement.id;
+    e.target.parentElement.remove();
     currentUser.deleteFromStories(story);
   }
 })
